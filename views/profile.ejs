@@ -1,8 +1,12 @@
 <p>
-ID: <%= user.id %><br/>
-Username: <%= user.username %><br/>
-Name: <%= user.displayName %><br/>
-<% if (user.emails) { %>
-Email: <%= user.emails[0].value %><br/>
+ID: <%= user.user.id %><br/>
+Username: <%= user.user.username %><br/>
+Name: <%= user.user.displayName %><br/>
+<% if (user.user.emails) { %>
+Email: <%= user.user.emails[0].value %><br/>
+<% } %>
+
+<% for (var i=0; i<user.posts.length; i++){ %>
+  Post: <%= user.posts[i].story %><br/>
 <% } %>
 </p>

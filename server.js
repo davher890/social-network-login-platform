@@ -108,16 +108,27 @@ app.get('/profile',
         // res.render('profile', {
         //     user: req.user
         // });
-        var token = 'EAACEdEose0cBAPTZCzvB3pdHnxFFTiDigyD3ZBUfoQmFKK9GkvGUhq4NjZC6Kz0IWZBw6a71qBePz0FC3piHqRLZC9JZB2AHXdtoEy3C2oCDxhlDB7UBZBjgtVvR9nnZBCfUofnYe7Ipe9XiZA2aJpDnmMKZCDcXK93txH8pz3wRfQMgZDZD';
+        var token = 'EAACEdEose0cBAMw6skcXYpqnfmgNd95PpvZB31ZAxPbmSGs2S1CiVWkKwYLhDTIBaLo8Lq3L8hAefbz43SvoYnjvaqGnPJo4uBlpIJryGYbsgcPL1q8adC9ghpBhHjqm2SIR4qUuB30O3K9CCxIz7tarlCozbBlFmbZBiHzRAZDZD';
         request({
             method: 'GET',
-            url: 'https://graph.facebook.com/v2.6/me/feed?access_token=' + myAccessToken,
+            url: 'https://graph.facebook.com/v2.6/me/feed?access_token=' + token,
         }, function(error, response, body) {
             if (error) {
                 console.log('Error', error);
+                res.render('profile', {
+                    user: req.user
+                });
             } else {
-                console.log('Body', body);
+                var posts = JSON.parse(JSON.stringify(JSON.parse(body))).data;
+                console.log(posts);
+                res.render('profile', {
+                    user: {
+                        user: req.user,
+                        posts: posts
+                    }
+                });
             }
+
         });
         // var facebook = new Facebook({
         //     appID: process.env.CLIENT_ID,
@@ -131,9 +142,7 @@ app.get('/profile',
         //         console.log(data);
         //     }
         // });
-        res.render('profile', {
-            user: req.user
-        });
+
     }
 );
 
